@@ -7,7 +7,8 @@ sys_p = pidstd(kp);
 
 sys_chr_p = feedback(sys_opened_loop*sys_p, 1);
 
-[output_chr_p, t, x] = step(delta_input * sys_chr_p, t)
+% plottig
+[output_chr_p, t, x] = step(delta_input * sys_chr_p, t);
 plot(t, output_chr_p, t, degrau);
 hold on;
 grid on;
@@ -28,7 +29,8 @@ sys_pi = pidstd(kp, ti);
 
 sys_chr_pi = feedback(sys_opened_loop*sys_pi, 1);
 
-[output_chr_pi, t, x] = step(delta_input * sys_chr_pi, t)
+% plottig
+[output_chr_pi, t, x] = step(delta_input * sys_chr_pi, t);
 plot(t, output_chr_pi, t, degrau);
 hold on;
 grid on;
@@ -51,7 +53,8 @@ sys_pid = pidstd(kp, ti, td);
 
 sys_chr_pid = feedback(sys_opened_loop*sys_pid, 1);
 
-[output_chr_pid, t, x] = step(delta_input * sys_chr_pid, t)
+% plottig
+[output_chr_pid, t, x] = step(delta_input * sys_chr_pid, t);
 plot(t, output_chr_pid, t, degrau);
 hold on;
 grid on;
@@ -64,6 +67,7 @@ set(h, "fontsize", 14);
 print -dpng 'figures/CHR/03-PID_vs_step.png'
 hold off;
 
+% Controllers comparison
 plot(t, output_chr_p, 'r---');
 hold on;
 plot(t, output_chr_pi, 'g---');

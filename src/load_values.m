@@ -8,7 +8,7 @@ load transfer_function/TransferFunction13.mat;
 %plot(t, saida);
 
 % defining transfer function using smith method
-delta_output = saida(181) - saida(1);
+delta_output = saida(end) - saida(1);
 delta_input = degrau(1);
 
 % getting k
@@ -39,54 +39,52 @@ h_pade = tf(num, den);
 sys_opened_loop = sys_without_delay * h_pade;
 
 % using step function in order to get output estimated values
-[output_open_loop, t, x] = step(delta_input * sys_opened_loop, t);
+[output_opened_loop, t, x] = step(delta_input * sys_opened_loop, t);
 
 % comparing two transfer functions
-%hf = figure();
-%plot(t, output_open_loop, t, saida);
-%grid on;
-%title('Comparing output estimated versus expected');
-%xlabel('Time [s]');
-%ylabel('Y');
-%ylim([-2 21]);
-%legend('Output Estimated', 'Output Expected', 'location', 'southeast');
-%print(hf, "transfer_functions.pdf", "-dpdflatexstandalone");
+plot(t, output_opened_loop, t, saida);
+hold on;
+grid on;
+title('Comparing output estimated versus expected');
+xlabel('Time [s]');
+ylabel('Y');
+ylim([-2 21]);
+legend('Output Estimated', 'Output Expected', 'location', 'southeast');
+print -dpng 'figures/01-Comparing_transfer_functions.png'
+hold off;
 
-%hf = figure();
-%plot(t, output_open_loop, t, degrau);
-%grid on;
-%title('Comparing Opened Loop versus Step');
-%xlabel('Time [s]');
-%ylabel('Y');
-%ylim([-2 21]);
-%legend('Opened Loop', 'Step', 'location', 'southeast');
-%print(hf, "output_opened_loop_vs_degrau.pdf", "-dpdflatexstandalone");
+% comparing output of opened loop with input required
+plot(t, output_opened_loop, t, degrau);
+hold on;
+grid on;
+title('Comparing Opened Loop versus Step');
+xlabel('Time [s]');
+ylabel('Y');
+ylim([-2 21]);
+legend('Opened Loop', 'Step', 'location', 'southeast');
+print -dpng 'figures/02-Output_opened_loop_vs_step.png'
+hold off;
 
-% error in open loop case
-error_open_loop = delta_input - delta_output;
+% error in opened loop case
+error_opened_loop_real = delta_input - saida(end)
+error_opened_loop_predict = delta_input - output_opened_loop(end)
 
 % creating closed loop system
-sys_closed_loop = feedback(sys_opened_loop, 1)
+sys_closed_loop = feedback(sys_opened_loop, 1);
 
 % getting output of closed loop applying a step of 13
-%hf = figure();
-%[output_closed_loop, t, x] = step(delta_input * sys_closed_loop, t)
-%plot(t, output_closed_loop, t, degrau);
-%grid on;
-%title('Comparing Closed Loop versus Step');
-%xlabel('Time [s]');
-%ylabel('Y');
-%ylim([-2 15]);
-%legend('Closed Loop', 'Step', 'location', 'southeast');
-%saveas(hf, "output_closed_loop_vs_degrau.png", "png");
+[output_closed_loop, t, x] = step(delta_input * sys_closed_loop, t);
+plot(t, output_closed_loop, t, degrau);
+hold on;
+grid on;
+title('Comparing Closed Loop versus Step');
+xlabel('Time [s]');
+ylabel('Y');
+ylim([-2 15]);
+legend('Closed Loop', 'Step', 'location', 'southeast');
+print -dpng 'figures/03-Output_closed_loop_vs_step.png'
+hold off;
 
-error_closed_loop = delta_input - output_closed_loop(181)
-
-
-
-
-
-
-
-
+% error in closed loop case
+error_closed_loop_predict = delta_input - output_closed_loop(end)
 

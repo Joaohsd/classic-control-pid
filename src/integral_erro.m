@@ -7,7 +7,8 @@ sys_pid = pidstd(kp, ti, td);
 
 sys_integral_pid = feedback(sys_opened_loop*sys_pid, 1);
 
-[output_integral_pid, t, x] = step(delta_input * sys_integral_pid, t)
+% plotting
+[output_integral_pid, t, x] = step(delta_input * sys_integral_pid, t);
 plot(t, output_integral_pid, t, degrau);
 hold on;
 grid on;
