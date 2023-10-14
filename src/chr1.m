@@ -44,7 +44,6 @@ print -dpng 'figures/CHR/02-PI_vs_step.png'
 hold off;
 
 % PID controller
-
 kp = (0.6 * tal) / (k * theta);
 ti = 1 * tal;
 td = 0.5 * theta;

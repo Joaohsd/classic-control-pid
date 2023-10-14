@@ -45,11 +45,11 @@ sys_opened_loop = sys_without_delay * h_pade;
 plot(t, output_opened_loop, t, saida);
 hold on;
 grid on;
-title('Comparing output estimated versus expected');
+title('Comparing estimated versus expected transfer functions');
 xlabel('Time [s]');
 ylabel('Y');
 ylim([-2 21]);
-legend('Output Estimated', 'Output Expected', 'location', 'southeast');
+legend('Estimated function', 'Expected function', 'location', 'southeast');
 print -dpng 'figures/01-Comparing_transfer_functions.png'
 hold off;
 
