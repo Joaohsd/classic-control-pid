@@ -4,9 +4,6 @@ pkg load control;
 % loading dataset from .mat file
 load transfer_function/TransferFunction13.mat;
 
-% plotting output x time
-%plot(t, saida);
-
 % defining transfer function using smith method
 delta_output = saida(end) - saida(1);
 delta_input = degrau(1);
@@ -22,13 +19,13 @@ v_t2 = 0.632 * delta_output;
 t1 = t(16);
 t2 = t(36);
 
-% getting t value
+% getting tal value
 tal = 1.5 * (t2 - t1);
 
 % getting theta value
 theta = t2 - tal;
 
-% system with delay
+% system without delay
 sys_without_delay = tf([k], [tal 1]);
 
 % creating delay
@@ -49,7 +46,7 @@ title('Comparing estimated versus expected transfer functions');
 xlabel('Time [s]');
 ylabel('Y');
 ylim([-2 21]);
-legend('Estimated function', 'Expected function', 'location', 'southeast');
+legend('Estimated output', 'Expected output', 'location', 'southeast');
 print -dpng 'figures/01-Comparing_transfer_functions.png'
 hold off;
 
