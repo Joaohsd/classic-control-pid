@@ -5,6 +5,11 @@ In order to find the constants for the PID controller, it was used two methods:
 *  IAE;
 It also constains a menu for the user in "menu.m" script, that allows the user to enter with the Kp, Ti and Td constants, in addition to provide the setpoint required.
 
+## **Authors**
+*  Fernanda Ito
+*  João Delfino
+*  Paulo Otávio
+
 ## **Requirements**
 *  Octave;
 
